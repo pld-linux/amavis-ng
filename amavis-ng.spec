@@ -6,7 +6,7 @@ Version:	0.1.4.1.orig
 Release:	2
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://prdownloads.sourceforge.net/amavis/%{name}_%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 Patch0:		%{name}.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
