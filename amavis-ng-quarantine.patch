@@ -1,0 +1,40 @@
+diff -Nur old/AMAVIS.pm new/AMAVIS.pm
+--- old/AMAVIS.pm	2003-04-14 15:18:21.000000000 +0000
++++ new/AMAVIS.pm	2004-07-14 00:00:49.000000000 +0000
+@@ -88,6 +88,7 @@
+ 	    $cfg_chroot
+ 
+ 	    $cfg_unpack_dir
++	    $cfg_do_quarantine
+ 	    $cfg_quarantine_dir
+ 	    $cfg_problem_dir
+ 
+@@ -174,6 +175,7 @@
+ 	     ': no unpack dir specified, using /tmp');
+   }
+   # Quarantine path for rejected messages
++  $cfg_do_quarantine = (lc($cfg->val('paths', 'do quarantine')) || 'yes');
+   $cfg_quarantine_dir = ($cfg->val('paths', 'quarantine') ||
+ 			 $cfg->val('paths', 'quarantine dir') || 
+ 			 '/var/spool/amavis-ng/quarantine');
+@@ -502,7 +504,7 @@
+     $mta->drop_message($args);
+ 
+     # Quarantine message
+-    if (defined $cfg_quarantine_dir) {
++    if ($cfg_do_quarantine eq 'yes' && defined $cfg_quarantine_dir) {
+       $self->quarantine_message($args, $cfg_quarantine_dir) or do {
+         writelog($args,LOG_CRIT, __PACKAGE__.
+   	       ": Error while quarantining message");
+diff -Nur old/etc/amavis.conf new/etc/amavis.conf
+--- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
++++ new/etc/amavis.conf	2004-07-14 00:03:07.000000000 +0000
+@@ -82,7 +82,7 @@
+ 
+ ;; Where should infected mail be stored? (Only the actual mail, not
+ ;; the unpacked attachments)
+-
++do quarantine = yes
+ ; quarantine dir = /var/spool/amavis-ng/quarantine
+ 
+ ;; If problems occur, put message into this directory
