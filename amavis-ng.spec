@@ -2,24 +2,24 @@
 Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
-Version:	0.1.6.4.orig
-Release:	4
+Version:	0.1.6.9
+Release:	1
 License:	GPL
 Group:		Applications/Mail
-Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
-# Source0-md5:	b3559a910bad4a522a466da3a44e62c6
+Source0:	http://dl.sourceforge.net/amavis/%{name}-%{version}.tar.gz
+# Source0-md5:	e9086bfbd3fa2049860d176a0c30549e
 Source1:	%{name}-logrotate
 Patch0:		%{name}-quarantine.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-courier.patch
 Patch3:		%{name}-mks.patch
 URL:		http://amavis.sourceforge.net/
-BuildRequires:	perl-Config-IniFiles
-BuildRequires:	perl-File-MMagic
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.159
+Requires:	perl-Config-IniFiles
+Requires: 	perl-File-MMagic
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -133,7 +133,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc doc/old/README* doc/ChangeLog doc/RELEASE-NOTES
+%doc doc/README* doc/ChangeLog doc/RELEASE-NOTES
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,amavis,amavis) /var/log/amavis-ng
