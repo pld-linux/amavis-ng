@@ -35,14 +35,6 @@ install -d $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%pre
-
-#%preun
-
-#%post
-
-#%postun
-
 %files
 %defattr(644,root,root,755)
 %doc README ChangeLog
