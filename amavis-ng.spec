@@ -10,6 +10,8 @@ Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 # Source0-md5:	b3559a910bad4a522a466da3a44e62c6
 Patch0:		%{name}-quarantine.patch
 Patch1:		%{name}-config.patch
+Patch2:		%{name}-header.patch
+Patch3:		%{name}-mks.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
 BuildRequires:	perl-File-MMagic
@@ -51,6 +53,8 @@ czasie budowania.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %{__perl} Makefile.PL \
@@ -66,7 +70,7 @@ cd ../amavis-milter
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_infodir},%{_sbindir}}
-install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine,queue}
+install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine,queue,tmp}
 install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/amavis-ng}
 install -d $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 
