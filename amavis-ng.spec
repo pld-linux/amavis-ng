@@ -22,10 +22,10 @@ Requires(pre):	/usr/sbin/groupmod
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	amavisd
 Obsoletes:	amavis
 Obsoletes:	AMaViS
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # optionally used
 %define	_noautoreq	'perl(Archive::Tar)' 'perl(Archive::Zip)' 'perl(Compress::Zlib)' 'perl(Convert::TNEF)' 'perl(Convert::UUlib)' 'perl(MIME::Parser)' 'perl(File::Scan)'
