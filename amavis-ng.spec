@@ -92,9 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 if [ "$1" = "1" ]; then
-    echo
-    echo type \"info amavis-ng\" to get help
-    echo
+	echo
+	echo type \"info amavis-ng\" to get help
+	echo
 fi
 
 if [ -n "`getgid amavis`" ]; then
@@ -121,8 +121,8 @@ fi
 chown -R daemon /var/{spool,log}/amavis-ng
 
 if [ -e /var/lock/subsys/courier ]; then
-    %{_sbindir}/filterctl stop perlfilter
-    %{_sbindir}/filterctl start perlfilter
+	%{_sbindir}/filterctl stop perlfilter
+	%{_sbindir}/filterctl start perlfilter
 fi
 
 %postun
