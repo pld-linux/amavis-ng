@@ -1,0 +1,12 @@
+diff -Nur old/AMAVIS.pm new/AMAVIS.pm
+--- old/AMAVIS.pm	2004-07-14 14:03:53.000000000 +0000
++++ new/AMAVIS.pm	2004-07-14 14:11:40.000000000 +0000
+@@ -96,7 +96,7 @@
+ 	   );
+ 
+ 
+-$conffile = '/etc/amavis-ng/amavis.conf';
++$conffile = '/etc/amavis.conf';
+ 
+ sub init {
+   my $self = shift;
