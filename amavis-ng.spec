@@ -19,6 +19,7 @@ BuildRequires:	perl-File-MMagic
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
+BuildRequires:	rpmbuild(macros) >= 1.159
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
