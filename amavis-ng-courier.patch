@@ -41,8 +41,8 @@ diff -Nur old/AMAVIS/MTA/Courier.pm new/AMAVIS/MTA/Courier.pm
    
 diff -Nur old/doc/amavis-ng.texi new/doc/amavis-ng.texi
 --- old/doc/amavis-ng.texi	2003-04-14 15:18:47.000000000 +0000
-+++ new/doc/amavis-ng.texi	2004-07-22 21:31:38.000000000 +0000
-@@ -1044,36 +1044,32 @@
++++ new/doc/amavis-ng.texi	2004-07-23 12:07:46.000000000 +0000
+@@ -1044,36 +1044,33 @@
  
  @example
  @verbatim
@@ -70,6 +70,7 @@ diff -Nur old/doc/amavis-ng.texi new/doc/amavis-ng.texi
 +echo "all" > /etc/courier/filters/perlfilter-mode
 +echo "30" > /etc/courier/filters/perlfilter-numprocs
 +echo "/usr/bin/amavis" > /etc/courier/filters/perlfilter
++chown daemon.daemon /etc/courier/filters/perlfilter*
 +filterctl start perlfilter
 +@end verbatim
 +@end example
