@@ -15,12 +15,12 @@ BuildRequires:	perl-File-MMagic
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
-Requires(pre): /usr/bin/getgid
-Requires(pre): /bin/id
-Requires(pre): /usr/sbin/groupadd
-Requires(pre): /usr/sbin/useradd
-Requires(postun):      /usr/sbin/userdel
-Requires(postun):      /usr/sbin/groupdel
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/userdel
+Requires(postun):	/usr/sbin/groupdel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	amavisd
 Obsoletes:	amavis
@@ -67,31 +67,31 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 if [ -n "`getgid amavis`" ]; then
-   if [ "`getgid amavis`" != "97" ]; then
-       echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
-       exit 1
-   fi
+	if [ "`getgid amavis`" != "97" ]; then
+		echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
+		exit 1
+	fi
 else
-  echo "adding group amavis GID=97"
-  /usr/sbin/groupadd -g 97 -r -f amavis
+	echo "adding group amavis GID=97"
+	/usr/sbin/groupadd -g 97 -r -f amavis
 fi
 
 if [ -n "`id -u amavis 2>/dev/null`" ]; then
-   if [ "`id -u amavis`" != "97" ]; then
-      echo "Error: user amavis doesn't have uid=97. Correct this before installing amavis." 1>&2
-      exit 1
-   fi
+	if [ "`id -u amavis`" != "97" ]; then
+		echo "Error: user amavis doesn't have uid=97. Correct this before installing amavis." 1>&2
+		exit 1
+	fi
 else
-   echo "adding user amavis UID=97"
-   /usr/sbin/useradd -u 97 -r -d /var/spool/amavis  -s /bin/false -c "Anti Virus Checker" -g nobody  amavis 1>&2
+	echo "adding user amavis UID=97"
+	/usr/sbin/useradd -u 97 -r -d /var/spool/amavis  -s /bin/false -c "Anti Virus Checker" -g nobody  amavis 1>&2
 fi
 
 %postun
 if [ "$1" = "0" ]; then
-   echo "Removing user amavis"
-   /usr/sbin/userdel amavis
-   echo "Removing group amavis"
-   /usr/sbin/groupdel amavis
+	echo "Removing user amavis"
+	/usr/sbin/userdel amavis
+	echo "Removing group amavis"
+	/usr/sbin/groupdel amavis
 fi
 
 %files
