@@ -7,6 +7,7 @@ Release:	3
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
+# Source0-md5:	cb194e571b3de9ec1fef489bb812579e
 Patch0:		%{name}.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
