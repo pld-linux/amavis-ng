@@ -39,6 +39,59 @@ diff -Nur old/AMAVIS/MTA/Courier.pm new/AMAVIS/MTA/Courier.pm
  
    $$args{'status'} = 'accept';
    
+diff -Nur old/doc/amavis-ng.texi new/doc/amavis-ng.texi
+--- old/doc/amavis-ng.texi	2003-04-14 15:18:47.000000000 +0000
++++ new/doc/amavis-ng.texi	2004-07-22 21:31:38.000000000 +0000
+@@ -1044,36 +1044,32 @@
+ 
+ @example
+ @verbatim
+-chown -R daemon:daemon /var/spool/amavis-ng/quarantine/
++chown -R daemon /var/{spool,log}/amavis-ng/
+ @end verbatim
+ @end example
+ 
+ @node Configuring Courier to use @command{AMaViS-ng}
+ @subsubsection Configuring Courier to use @command{AMaViS-ng}
+-
+ When @command{AMaViS-ng} is configured for Courier support, the program
+ @command{amavis} is the application which should be configured for use with
+-@command{perlfilter}. Proper configuation of the Courier perlfilter interface
+-is beyond the scope of this document. It is suggested that the
+-reader attempt to configure the @command{perlfilter-example.pl} perlfilter
+-as distributed with Courier in order to ensure a proper and working
+-@command{perlfilter} installation before proceeding. The following man
+-pages distribute with Courier may also prove helpful:
++@command{perlfilter}.
++
++Example perlfilter configuration:
++@example
++@verbatim
++echo "all" > /etc/courier/filters/perlfilter-mode
++echo "30" > /etc/courier/filters/perlfilter-numprocs
++echo "/usr/bin/amavis" > /etc/courier/filters/perlfilter
++filterctl start perlfilter
++@end verbatim
++@end example
++
+ @itemize @bullet
+ @item
+ @cite{courierfilter(8)}
+ @item
+ @cite{courierperlfilter(8)}
+ @end itemize
+-After configuring a working perlfilter, put the following line into@*
+-@file{/etc/courier/filters/perlfilter}, substituting the pathname to
+-@command{amavis} with the correct path for your installation:
+-
+-@example
+-@verbatim
+-/usr/bin/amavis
+-@end verbatim
+-@end example
+ 
+ Reload the perlfilter and start the virus filter with the commands:
+ 
 diff -Nur old/etc/amavis.conf new/etc/amavis.conf
 --- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
 +++ new/etc/amavis.conf	2004-07-15 16:20:34.000000000 +0000
