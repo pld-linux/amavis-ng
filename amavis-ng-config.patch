@@ -10,3 +10,40 @@ diff -Nur old/AMAVIS.pm new/AMAVIS.pm
  
  sub init {
    my $self = shift;
+diff -Nur old/etc/amavis.conf new/etc/amavis.conf
+--- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
++++ new/etc/amavis.conf	2004-07-15 14:39:25.000000000 +0000
+@@ -78,7 +78,7 @@
+ 
+ ;; Where should mails be unpacked to?
+ 
+-; unpack dir = /tmp/
++unpack dir = /var/spool/amavis-ng/tmp
+ 
+ ;; Where should infected mail be stored? (Only the actual mail, not
+ ;; the unpacked attachments)
+@@ -224,21 +224,15 @@
+ 
+ ;; Free (un)compression programs
+ bzip2 = /usr/bin/bzip2
+-arj = /usr/bin/arj
+-nomarch = /usr/bin/nomarch
+ gzip = /bin/gzip
+-unzoo = /usr/bin/unzoo
++arc = /usr/bin/arc
++zoo = /usr/bin/zoo
++unarj = /usr/bin/unarj
+ 
+ ;; lha, unrar are non-free.
+ ; lha = /usr/bin/lha
+ ; unrar = /usr/bin/unrar
+ 
+-;; For arc zoo, unarj, there are free alternatives whcih are enabled
+-;; above.
+-; arc = /usr/bin/arc
+-; zoo = /usr/bin/zoo
+-; unarj = /usr/bin/unarj
+-
+ [security]
+ 
+ ;; Resource limits for unpacking each message
