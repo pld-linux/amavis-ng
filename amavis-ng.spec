@@ -1,3 +1,4 @@
+%include	/usr/lib/rpm/macros.perl
 Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
@@ -8,8 +9,11 @@ Group:		Applications/Mail
 Source0:	http://prdownloads.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 Patch0:		%{name}.patch
 URL:		http://amavis.sourceforge.net/
-BuildRequires:	perl
+BuildRequires:	perl-Config-IniFiles
+BuildRequires:	perl-File-MMagic
 BuildRequires:	perl-devel
+BuildRequires:	perl-libnet
+BuildRequires:	rpm-perlprov
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -20,6 +24,9 @@ Obsoletes:	amavisd
 Obsoletes:	amavis
 Obsoletes:	AMaViS
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# optionally used
+%define	_noautoreq	'perl(Archive::Tar)' 'perl(Archive::Zip)' 'perl(Compress::Zlib)' 'perl(Convert::TNEF)' 'perl(Convert::UUlib)' 'perl(MIME::Parser)' 'perl(File::Scan)'
 
 %description
 AMaViS-ng is a modular rewrite of amavisd and amavis-perl. It scans
@@ -45,6 +52,7 @@ czasie budowania.
 %build
 perl Makefile.PL
 %{__make}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
@@ -83,7 +91,6 @@ if [ "$1" = "0" ]; then
    /usr/sbin/groupdel amavis
 fi
 
-
 %files
 %defattr(644,root,root,755)
 %doc doc/*
@@ -91,5 +98,6 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/amavis
 %attr(750,amavis,amavis) /var/spool/amavis
-%{_libdir}/perl5/*
+%{perl_sitelib}/AMAVIS.pm
+%{perl_sitelib}/AMAVIS
 %{_mandir}/man1/*
