@@ -10,6 +10,18 @@ diff -Nur old/AMAVIS.pm new/AMAVIS.pm
  
  sub init {
    my $self = shift;
+diff -Nur old/doc/amavis-ng.texi new/doc/amavis-ng.texi
+--- old/doc/amavis-ng.texi	2003-04-14 15:18:47.000000000 +0000
++++ new/doc/amavis-ng.texi	2004-07-22 21:35:13.000000000 +0000
+@@ -335,7 +335,7 @@
+ @end menu
+ 
+ All configuration parameters are stored in
+-@file{/etc/amavis-ng/amavis.conf} which has a INI-style layout. The
++@file{/etc/amavis.conf} which has a INI-style layout. The
+ @command{--configfile} parameter can be used to specify a different
+ file.
+ 
 diff -Nur old/etc/amavis.conf new/etc/amavis.conf
 --- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
 +++ new/etc/amavis.conf	2004-07-15 14:39:25.000000000 +0000
