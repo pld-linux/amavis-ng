@@ -26,14 +26,6 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
-Requires:       arc
-Requires:       bzip2
-Requires:       file
-Requires:       lha
-Requires:       ncompress
-Requires:       unarj
-Requires:       unrar
-Requires:       zoo
 Provides:	group(amavis)
 Provides:	user(amavis)
 Obsoletes:	amavisd
