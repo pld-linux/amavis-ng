@@ -121,7 +121,8 @@ fi
 chown -R daemon /var/{spool,log}/amavis-ng
 
 if [ -e /var/lock/subsys/courier ]; then
-	/etc/rc.d/init.d/courier restart
+    %{_sbindir}/filterctl stop perlfilter
+    %{_sbindir}/filterctl start perlfilter
 fi
 
 %postun
