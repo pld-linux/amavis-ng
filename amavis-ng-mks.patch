@@ -1,0 +1,28 @@
+diff -Nur old/AMAVIS/AV/MKS.pm new/AMAVIS/AV/MKS.pm
+--- old/AMAVIS/AV/MKS.pm	2002-07-02 12:59:21.000000000 +0000
++++ new/AMAVIS/AV/MKS.pm	2004-07-15 14:28:45.000000000 +0000
+@@ -47,9 +47,8 @@
+ 
+   writelog($args,LOG_DEBUG,"Scanning with MKS");
+   writelog($args,LOG_DEBUG,
+-	   "Output from $cfg_mks_binary -a -c $$args{directory}/parts");
++	   "Output from $cfg_mks_binary -c $$args{directory}/parts");
+   my $output_handle = cmd_pipe($args, $cfg_mks_binary, 
+-			       '-a',
+ 			       '-c',
+ 			       "$$args{directory}/parts");
+   while(<$output_handle>) {
+diff -Nur old/etc/amavis.conf new/etc/amavis.conf
+--- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
++++ new/etc/amavis.conf	2004-07-15 14:27:42.000000000 +0000
+@@ -316,6 +316,10 @@
+ 
+ ; socket = localhost:8127
+ 
++[MKS]
++
++; mks = /usr/bin/mks32
++
+ [NOD32]
+ 
+ ; nod32 = /usr/bin/nod32
