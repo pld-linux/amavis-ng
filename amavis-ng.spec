@@ -8,6 +8,7 @@ License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 # Source0-md5:	b3559a910bad4a522a466da3a44e62c6
+Source1:	%{name}-logrotate
 Patch0:		%{name}-quarantine.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-courier.patch
@@ -69,14 +70,15 @@ cd ../amavis-milter
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_infodir},%{_sbindir}}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/logrotate.d,%{_infodir},%{_sbindir}}
 install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine,queue,tmp}
-install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/amavis-ng}
+install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/{archiv/amavis-ng,amavis-ng}}
 install -d $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/amavis-ng
 install etc/amavis.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install doc/amavis-ng.info $RPM_BUILD_ROOT%{_infodir}
 install amavis-milter/amavis-milter $RPM_BUILD_ROOT%{_sbindir}
@@ -123,6 +125,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,amavis,amavis) /var/log/amavis-ng
+%attr(770,amavis,amavis) /var/log/archiv/amavis-ng
 %attr(750,amavis,amavis) /var/run/amavis-ng
 %attr(770,amavis,amavis) /var/spool/amavis-ng
 %attr(644,amavis,amavis) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/amavis.conf
@@ -131,3 +134,4 @@ fi
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
+%{_sysconfdir}/logrotate.d/amavis-ng
