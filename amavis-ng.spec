@@ -3,7 +3,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.4.orig
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
@@ -88,6 +88,12 @@ install magic.mime $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 rm -rf $RPM_BUILD_ROOT
 
 %pre
+if [ "$1" = "1" ]; then
+    echo
+    echo type \"info amavis-ng\" to get help
+    echo
+fi
+
 if [ -n "`getgid amavis`" ]; then
 	if [ "`getgid amavis`" != "97" ]; then
 		echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
