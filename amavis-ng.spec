@@ -3,14 +3,14 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.4.orig
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 # Source0-md5:	b3559a910bad4a522a466da3a44e62c6
 Patch0:		%{name}-quarantine.patch
 Patch1:		%{name}-config.patch
-Patch2:		%{name}-header.patch
+Patch2:		%{name}-courier.patch
 Patch3:		%{name}-mks.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
@@ -103,8 +103,11 @@ if [ -n "`id -u amavis 2>/dev/null`" ]; then
 	fi
 else
 	echo "adding user amavis UID=97"
-	/usr/sbin/useradd -u 97 -r -d /var/spool/amavis  -s /bin/false -c "Anti Virus Checker" -g nobody  amavis 1>&2
+	/usr/sbin/useradd -u 97 -r -d /var/spool/amavis -s /bin/false -c "Anti Virus Checker" -g nobody amavis 1>&2
 fi
+
+%triggerin -- courier
+chown -R daemon /var/{spool,log}/amavis-ng
 
 %postun
 if [ "$1" = "0" ]; then
@@ -119,9 +122,9 @@ fi
 %doc doc/old/README* doc/ChangeLog doc/RELEASE-NOTES
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%attr(750,amavis,amavis) /var/log/amavis-ng
+%attr(770,amavis,amavis) /var/log/amavis-ng
 %attr(750,amavis,amavis) /var/run/amavis-ng
-%attr(750,amavis,amavis) /var/spool/amavis-ng
+%attr(770,amavis,amavis) /var/spool/amavis-ng
 %attr(644,amavis,amavis) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/amavis.conf
 %{_datadir}/amavis-ng
 %{_infodir}/amavis-ng.info*
