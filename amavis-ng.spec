@@ -91,5 +91,5 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/amavis
 %attr(750,amavis,amavis) /var/spool/amavis
-/usr/lib/perl5/*
-/usr/share/man/man1/*
+%{_libdir}/perl5/*
+%{_mandir}/man1/*
