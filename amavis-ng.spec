@@ -141,4 +141,4 @@ fi
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
-%{_sysconfdir}/logrotate.d/amavis-ng
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/amavis-ng
