@@ -1,0 +1,53 @@
+diff -Nur old/AMAVIS/MTA/Courier.pm new/AMAVIS/MTA/Courier.pm
+--- old/AMAVIS/MTA/Courier.pm	2003-03-17 23:04:11.000000000 +0000
++++ new/AMAVIS/MTA/Courier.pm	2004-07-15 16:22:43.000000000 +0000
+@@ -97,7 +97,7 @@
+   my $message_id;
+   while (1) {
+     $message_id = sprintf("%.8x-%.4x",time,$$);
+-    unless (defined mkpath ($prefix.$message_id, 0, 0770)) {
++    unless (defined mkpath ($prefix.$message_id, 0, 0775)) {
+       if (++$i > 10) {
+ 	return 0;
+       }
+@@ -174,19 +174,16 @@
+   my $args = shift;
+   writelog($args,LOG_INFO, __PACKAGE__.": Accepting message");
+ 
+-  #TODO Courier filters cannot rewrite MIME messages, we'd like
+-  #to be able to add a header or something to this message but
+-  #we can't.(yet). Sorry
+-  
+   ##Rewrite the message in the queue if we need to add a header
+-  #if ($cfg_x_header) {
+-  #  my $queuefile = IO::File->new("+>$$args{'messagefile'}");
+-  #  print $queuefile "$cfg_x_header_tag: $cfg_x_header_line\n";
+-  #  while (my $line=$$args{'filehandle'}->getline()) {
+-  #    print $queuefile $line;
+-  #  }
+-  #  close($queuefile);
+-  #}
++  if ($cfg_x_header) {
++    my $queuefile = IO::File->new("+>$$args{'messagefile'}");
++    print $queuefile "$cfg_x_header_tag: $cfg_x_header_line\n";
++    while (my $line=$$args{'filehandle'}->getline()) {
++      print $queuefile $line;
++    }
++    print STDOUT $queuefile;
++    close($queuefile);
++  }
+ 
+   $$args{'status'} = 'accept';
+   
+diff -Nur old/etc/amavis.conf new/etc/amavis.conf
+--- old/etc/amavis.conf	2003-04-08 14:09:56.000000000 +0000
++++ new/etc/amavis.conf	2004-07-15 16:20:34.000000000 +0000
+@@ -54,7 +54,7 @@
+ ; notifiers=Sender, Recipients, Admin
+ 
+ ;; What should be inserted into the message's headers if it is let
+-;; through? This does not work for the Milter or Courier interfaces.
++;; through? This does not work for the Milter interface.
+ 
+ ; x-header = true
+ ; x-header-tag = X-Scanned-By
