@@ -57,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 if [ -n "`getgid amavis`" ]; then
    if [ "`getgid amavis`" != "97" ]; then
-       echo "Warning: group amavis doesn't have gid=97. Correct this before installing clamav" 1>&2
+       echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
        exit 1
    fi
 else
@@ -79,7 +79,7 @@ fi
 if [ "$1" = "0" ]; then
    echo "Removing user amavis"
    /usr/sbin/userdel amavis
-   echo "Removing group clamav"
+   echo "Removing group amavis"
    /usr/sbin/groupdel amavis
 fi
 
