@@ -25,10 +25,12 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Provides:	group(amavis)
+Provides:	user(amavis)
 Obsoletes:	amavisd
 Obsoletes:	amavis
 Obsoletes:	AMaViS
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # optionally used
 %define	_noautoreq	'perl(Archive::Tar)' 'perl(Archive::Zip)' 'perl(Compress::Zlib)' 'perl(Convert::TNEF)' 'perl(Convert::UUlib)' 'perl(MIME::Parser)' 'perl(File::Scan)'
@@ -119,10 +121,8 @@ chown -R daemon /var/{spool,log}/amavis-ng
 
 %postun
 if [ "$1" = "0" ]; then
-	echo "Removing user amavis"
-	/usr/sbin/userdel amavis
-	echo "Removing group amavis"
-	/usr/sbin/groupdel amavis
+	%userremove amavis
+	%groupremove amavis
 fi
 
 %files
