@@ -6,7 +6,7 @@ Release:	0
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://prdownloads.sourceforge.net/amavis/%{name}_%{version}.tar.gz
-Patch0:		amavis-ng.patch
+Patch0:		%{name}.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl
 BuildRequires:	perl-devel
@@ -16,10 +16,15 @@ Obsoletes:	AMaViS
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-blah
+AMaViS-ng is a modular rewrite of amavisd and amavis-perl. It scans
+email for malicious code inside attachments and archive files,
+stopping delivery if malicious code is found. It supports integration
+of several third-party virus scanners and integrates nicely into
+several MTA setups. Unlike amavis-perl and amavisd, there is no need
+for build-time configuration.
 
-%description -l pl
-blah blah
+# %description -l pl
+# TODO
 
 %prep
 %setup -q
@@ -47,7 +52,7 @@ else
   echo "adding group amavis GID=97"
   /usr/sbin/groupadd -g 97 -r -f amavis
 fi
-								
+
 if [ -n "`id -u amavis 2>/dev/null`" ]; then
    if [ "`id -u amavis`" != "97" ]; then
       echo "Error: user amavis doesn't have uid=97. Correct this before installing amavis." 1>&2
@@ -65,7 +70,7 @@ if [ "$1" = "0" ]; then
    echo "Removing group clamav"
    /usr/sbin/groupdel amavis
 fi
-								
+
 
 %files
 %defattr(644,root,root,755)
