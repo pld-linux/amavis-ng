@@ -3,7 +3,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.4.1.orig
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
@@ -50,7 +50,8 @@ czasie budowania.
 %patch0 -p1
 
 %build
-perl Makefile.PL
+%{__perl} Makefile.PL \
+	INSTALLDIRS=vendor
 %{__make}
 
 %install
@@ -98,6 +99,6 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/amavis
 %attr(750,amavis,amavis) /var/spool/amavis
-%{perl_sitelib}/AMAVIS.pm
-%{perl_sitelib}/AMAVIS
+%{perl_vendorlib}/AMAVIS.pm
+%{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
