@@ -2,13 +2,13 @@
 Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
-Version:	0.1.4.1.orig
-Release:	3
+Version:	0.1.6.4.orig
+Release:	0.1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
-# Source0-md5:	cb194e571b3de9ec1fef489bb812579e
-Patch0:		%{name}.patch
+# Source0-md5:	b3559a910bad4a522a466da3a44e62c6
+Patch0:		%{name}-quarantine.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
 BuildRequires:	perl-File-MMagic
@@ -55,12 +55,19 @@ czasie budowania.
 	INSTALLDIRS=vendor
 %{__make}
 
+cd doc
+%{__make}
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_infodir}}
+install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install etc/amavis.conf $RPM_BUILD_ROOT%{_sysconfdir}
+install doc/amavis-ng.info $RPM_BUILD_ROOT%{_infodir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -96,11 +103,11 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc doc/*
+%doc doc/old/README* doc/ChangeLog doc/RELEASE-NOTES
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_sbindir}/*
-%{_datadir}/amavis
-%attr(750,amavis,sweep) /var/spool/amavis
+%attr(750,amavis,amavis) /var/spool/amavis-ng
+%attr(644,amavis,amavis) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/amavis.conf
+%{_infodir}/amavis-ng.info*
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
