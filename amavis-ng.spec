@@ -2,7 +2,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.4.1.orig
-Release:	0
+Release:	1
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://prdownloads.sourceforge.net/amavis/%{name}_%{version}.tar.gz
@@ -10,6 +10,12 @@ Patch0:		%{name}.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl
 BuildRequires:	perl-devel
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/userdel
+Requires(postun):	/usr/sbin/groupdel
 Obsoletes:	amavisd
 Obsoletes:	amavis
 Obsoletes:	AMaViS
@@ -23,8 +29,14 @@ of several third-party virus scanners and integrates nicely into
 several MTA setups. Unlike amavis-perl and amavisd, there is no need
 for build-time configuration.
 
-# %description -l pl
-# TODO
+%description -l pl
+AMaViS-ng to przepisana w sposób modularny wersja projektów amavisd i
+amavis-perl. Skanuje pocztê elektroniczn± na okoliczno¶æ gro¼nego kodu
+wewn±trz za³±czników i archiwów, nie pozwalaj±c na dorêczenie w
+przypadku wykrycia. Wspiera integracjê ró¿nych zewnêtrznych skanerów
+antywirusowych, ³adnie integruje siê z ró¿nymi serwerami pocztowymi.
+W przeciwieñstwie do amavis-perl i amavisd, nie wymaga konfiguracji w
+czasie budowania.
 
 %prep
 %setup -q
