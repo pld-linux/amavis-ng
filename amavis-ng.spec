@@ -3,7 +3,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.4.orig
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
@@ -34,7 +34,7 @@ Obsoletes:	AMaViS
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # optionally used
-%define	_noautoreq	'perl(Archive::Tar)' 'perl(Archive::Zip)' 'perl(Compress::Zlib)' 'perl(Convert::TNEF)' 'perl(Convert::UUlib)' 'perl(MIME::Parser)' 'perl(File::Scan)'
+%define	_noautoreq	'perl(File::Scan)'
 
 %description
 AMaViS-ng is a modular rewrite of amavisd and amavis-perl. It scans
@@ -119,6 +119,10 @@ fi
 
 %triggerin -- courier
 chown -R daemon /var/{spool,log}/amavis-ng
+
+if [ -e /var/lock/subsys/courier ]; then
+	/etc/rc.d/init.d/courier restart
+fi
 
 %postun
 if [ "$1" = "0" ]; then
