@@ -2,7 +2,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.4.1.orig
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://prdownloads.sourceforge.net/amavis/%{name}_%{version}.tar.gz
@@ -86,7 +86,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README TODO
+%doc doc/*
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/amavis
