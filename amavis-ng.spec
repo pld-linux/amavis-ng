@@ -14,12 +14,8 @@ BuildRequires:	perl-File-MMagic
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
-Requires(pre):	/usr/bin/getgid
-Requires(pre):	/bin/id
-Requires(pre):	/usr/sbin/groupadd
-Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
-Requires(postun):	/usr/sbin/groupdel
+Requires(pre):	group-sweep
+Requires(pre):	user-amavis
 Obsoletes:	amavisd
 Obsoletes:	amavis
 Obsoletes:	AMaViS
@@ -63,42 +59,13 @@ install -d $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-if [ -n "`getgid amavis`" ]; then
-   if [ "`getgid amavis`" != "97" ]; then
-       echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
-       exit 1
-   fi
-else
-  echo "adding group amavis GID=97"
-  /usr/sbin/groupadd -g 97 -r -f amavis
-fi
-
-if [ -n "`id -u amavis 2>/dev/null`" ]; then
-   if [ "`id -u amavis`" != "97" ]; then
-      echo "Error: user amavis doesn't have uid=97. Correct this before installing amavis." 1>&2
-      exit 1
-   fi
-else
-   echo "adding user amavis UID=97"
-   /usr/sbin/useradd -u 97 -r -d /var/spool/amavis  -s /bin/false -c "Anti Virus Checker" -g nobody  amavis 1>&2
-fi
-
-%postun
-if [ "$1" = "0" ]; then
-   echo "Removing user amavis"
-   /usr/sbin/userdel amavis
-   echo "Removing group amavis"
-   /usr/sbin/groupdel amavis
-fi
-
 %files
 %defattr(644,root,root,755)
 %doc doc/*
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %{_datadir}/amavis
-%attr(750,amavis,amavis) /var/spool/amavis
+%attr(750,amavis,sweep) /var/spool/amavis
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
