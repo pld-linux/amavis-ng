@@ -9,6 +9,7 @@ Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}_%{version}.tar.gz
 # Source0-md5:	b3559a910bad4a522a466da3a44e62c6
 Patch0:		%{name}-quarantine.patch
+Patch1:		%{name}-config.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-Config-IniFiles
 BuildRequires:	perl-File-MMagic
@@ -49,6 +50,7 @@ czasie budowania.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__perl} Makefile.PL \
@@ -58,16 +60,23 @@ czasie budowania.
 cd doc
 %{__make}
 
+cd ../amavis-milter
+%{__make}
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_infodir}}
-install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_infodir},%{_sbindir}}
+install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine,queue}
+install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/amavis-ng}
+install -d $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install etc/amavis.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install doc/amavis-ng.info $RPM_BUILD_ROOT%{_infodir}
+install amavis-milter/amavis-milter $RPM_BUILD_ROOT%{_sbindir}
+install magic.mime $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -105,8 +114,12 @@ fi
 %defattr(644,root,root,755)
 %doc doc/old/README* doc/ChangeLog doc/RELEASE-NOTES
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_sbindir}/*
+%attr(750,amavis,amavis) /var/log/amavis-ng
+%attr(750,amavis,amavis) /var/run/amavis-ng
 %attr(750,amavis,amavis) /var/spool/amavis-ng
 %attr(644,amavis,amavis) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/amavis.conf
+%{_datadir}/amavis-ng
 %{_infodir}/amavis-ng.info*
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
