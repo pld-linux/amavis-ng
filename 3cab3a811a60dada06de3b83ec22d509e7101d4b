@@ -1,0 +1,3 @@
+- s/header.patch/courier.patch/ - more courier fixes
+- trigger to use courier (change perm); %files fixes
+- rel. 1
