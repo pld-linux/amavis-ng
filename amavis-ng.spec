@@ -17,7 +17,7 @@ URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 Requires:	perl-Config-IniFiles
 Requires: 	perl-File-MMagic
 Requires(pre):	/usr/bin/getgid
@@ -93,29 +93,12 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 if [ "$1" = "1" ]; then
 	echo
-	echo type \"info amavis-ng\" to get help
+	echo 'Type "info amavis-ng" to get help'
 	echo
 fi
 
-if [ -n "`getgid amavis`" ]; then
-	if [ "`getgid amavis`" != "97" ]; then
-		echo "Warning: group amavis doesn't have gid=97. Correct this before installing amavis" 1>&2
-		exit 1
-	fi
-else
-	echo "adding group amavis GID=97"
-	/usr/sbin/groupadd -g 97 -r -f amavis
-fi
-
-if [ -n "`id -u amavis 2>/dev/null`" ]; then
-	if [ "`id -u amavis`" != "97" ]; then
-		echo "Error: user amavis doesn't have uid=97. Correct this before installing amavis." 1>&2
-		exit 1
-	fi
-else
-	echo "adding user amavis UID=97"
-	/usr/sbin/useradd -u 97 -r -d /var/spool/amavis -s /bin/false -c "Anti Virus Checker" -g nobody amavis 1>&2
-fi
+%groupadd -g 97 -r -f amavis
+%useradd -u 97 -r -d /var/spool/amavis -s /bin/false -c "Anti Virus Checker" -g nobody amavis
 
 %triggerin -- courier
 chown -R daemon /var/{spool,log}/amavis-ng
