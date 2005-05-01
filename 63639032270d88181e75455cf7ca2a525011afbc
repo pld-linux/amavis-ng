@@ -1,0 +1,2 @@
+- add config.patch to change config location
+- %build %install %files fixes
