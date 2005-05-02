@@ -19,7 +19,7 @@ BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.202
 Requires:	perl-Config-IniFiles
-Requires: 	perl-File-MMagic
+Requires:	perl-File-MMagic
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -49,8 +49,8 @@ AMaViS-ng to przepisana w sposób modularny wersja projektów amavisd i
 amavis-perl. Skanuje pocztê elektroniczn± na okoliczno¶æ gro¼nego kodu
 wewn±trz za³±czników i archiwów, nie pozwalaj±c na dorêczenie w
 przypadku wykrycia. Wspiera integracjê ró¿nych zewnêtrznych skanerów
-antywirusowych, ³adnie integruje siê z ró¿nymi serwerami pocztowymi.
-W przeciwieñstwie do amavis-perl i amavisd, nie wymaga konfiguracji w
+antywirusowych, ³adnie integruje siê z ró¿nymi serwerami pocztowymi. W
+przeciwieñstwie do amavis-perl i amavisd, nie wymaga konfiguracji w
 czasie budowania.
 
 %prep
@@ -123,10 +123,10 @@ fi
 %attr(770,amavis,amavis) /var/log/archiv/amavis-ng
 %attr(750,amavis,amavis) /var/run/amavis-ng
 %attr(770,amavis,amavis) /var/spool/amavis-ng
-%attr(644,amavis,amavis) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/amavis.conf
+%attr(644,amavis,amavis) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/amavis.conf
 %{_datadir}/amavis-ng
 %{_infodir}/amavis-ng.info*
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/logrotate.d/amavis-ng
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/logrotate.d/amavis-ng
