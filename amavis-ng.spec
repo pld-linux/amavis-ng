@@ -18,19 +18,19 @@ BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.202
-Requires:	perl-Config-IniFiles
-Requires:	perl-File-MMagic
-Requires(pre):	/usr/bin/getgid
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
-Requires(postun):	/usr/sbin/groupdel
+Requires:	perl-Config-IniFiles
+Requires:	perl-File-MMagic
 Provides:	group(amavis)
 Provides:	user(amavis)
-Obsoletes:	amavisd
-Obsoletes:	amavis
 Obsoletes:	AMaViS
+Obsoletes:	amavis
+Obsoletes:	amavisd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # optionally used
@@ -102,8 +102,7 @@ fi
 
 %triggerin -- courier
 chown -R daemon /var/{spool,log}/amavis-ng
-
-if [ -e /var/lock/subsys/courier ]; then
+if [ -f /var/lock/subsys/courier ]; then
 	%{_sbindir}/filterctl stop perlfilter
 	%{_sbindir}/filterctl start perlfilter
 fi
@@ -129,4 +128,4 @@ fi
 %{perl_vendorlib}/AMAVIS.pm
 %{perl_vendorlib}/AMAVIS
 %{_mandir}/man1/*
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/logrotate.d/amavis-ng
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/amavis-ng
