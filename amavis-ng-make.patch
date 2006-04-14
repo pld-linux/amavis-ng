@@ -1,0 +1,12 @@
+--- amavis-ng-0.1.6.9/amavis-milter/Makefile~	2003-04-08 17:10:21.000000000 +0300
++++ amavis-ng-0.1.6.9/amavis-milter/Makefile	2006-04-14 16:05:09.000000000 +0300
+@@ -1,7 +1,8 @@
+ all: amavis-milter
++CC = cc
+ 
+ amavis-milter:
+-	cc \
++	$(CC) \
+ 	-DAMAVISD_SOCKET=\"/var/run/amavis-ng/milter.amavis\" \
+ 	-DRUNTIME_DIR=\"/var/spool/amavis-ng\" \
+ 	-DPID_FILE=\"/var/run/amavis-ng/amavis-milter.pid\" \
