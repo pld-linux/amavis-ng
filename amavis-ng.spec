@@ -4,7 +4,7 @@ Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Mail
 Source0:	http://dl.sourceforge.net/amavis/%{name}-%{version}.tar.gz
@@ -14,11 +14,13 @@ Patch0:		%{name}-quarantine.patch
 Patch1:		%{name}-config.patch
 Patch2:		%{name}-courier.patch
 Patch3:		%{name}-mks.patch
+Patch4:		%{name}-make.patch
 URL:		http://amavis.sourceforge.net/
 BuildRequires:	perl-devel
 BuildRequires:	perl-libnet
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	sendmail-devel
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
@@ -60,6 +62,10 @@ czasie budowania.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+
+# precompiled x86 binary
+rm -f amavis-milter/amavis-milter
 
 %build
 %{__perl} Makefile.PL \
@@ -70,7 +76,9 @@ cd doc
 %{__make}
 
 cd ../amavis-milter
-%{__make}
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
