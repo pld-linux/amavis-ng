@@ -1,4 +1,5 @@
 %include	/usr/lib/rpm/macros.perl
+%define		pdir	AMAVIS
 Summary:	New generation amavis
 Summary(pl):	Amavis nowej generacji
 Name:		amavis-ng
