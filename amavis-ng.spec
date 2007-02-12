@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.perl
 %define		pdir	AMAVIS
 Summary:	New generation amavis
-Summary(pl):	Amavis nowej generacji
+Summary(pl.UTF-8):   Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.9
 Release:	3
@@ -47,13 +47,13 @@ of several third-party virus scanners and integrates nicely into
 several MTA setups. Unlike amavis-perl and amavisd, there is no need
 for build-time configuration.
 
-%description -l pl
-AMaViS-ng to przepisana w sposób modularny wersja projektów amavisd i
-amavis-perl. Skanuje pocztê elektroniczn± na okoliczno¶æ gro¼nego kodu
-wewn±trz za³±czników i archiwów, nie pozwalaj±c na dorêczenie w
-przypadku wykrycia. Wspiera integracjê ró¿nych zewnêtrznych skanerów
-antywirusowych, ³adnie integruje siê z ró¿nymi serwerami pocztowymi. W
-przeciwieñstwie do amavis-perl i amavisd, nie wymaga konfiguracji w
+%description -l pl.UTF-8
+AMaViS-ng to przepisana w sposÃ³b modularny wersja projektÃ³w amavisd i
+amavis-perl. Skanuje pocztÄ™ elektronicznÄ… na okolicznoÅ›Ä‡ groÅºnego kodu
+wewnÄ…trz zaÅ‚Ä…cznikÃ³w i archiwÃ³w, nie pozwalajÄ…c na dorÄ™czenie w
+przypadku wykrycia. Wspiera integracjÄ™ rÃ³Å¼nych zewnÄ™trznych skanerÃ³w
+antywirusowych, Å‚adnie integruje siÄ™ z rÃ³Å¼nymi serwerami pocztowymi. W
+przeciwieÅ„stwie do amavis-perl i amavisd, nie wymaga konfiguracji w
 czasie budowania.
 
 %prep
