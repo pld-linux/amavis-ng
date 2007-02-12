@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.perl
 %define		pdir	AMAVIS
 Summary:	New generation amavis
-Summary(pl.UTF-8):   Amavis nowej generacji
+Summary(pl.UTF-8):	Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.6.9
 Release:	3
