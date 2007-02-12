@@ -1,5 +1,5 @@
 Summary:	New generation amavis
-Summary(pl):	Amavis nowej generacji
+Summary(pl.UTF-8):   Amavis nowej generacji
 Name:		amavis-ng
 Version:	0.1.3.1
 Release:	0
@@ -17,7 +17,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 blah
 
-%description -l pl
+%description -l pl.UTF-8
 blah blah
 
 %prep
