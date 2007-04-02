@@ -1,4 +1,4 @@
 /var/log/amavis-ng/amavis-ng.log {
-	olddir /var/log/archiv/amavis-ng
+	olddir /var/log/archive/amavis-ng
         nocreate
 }
