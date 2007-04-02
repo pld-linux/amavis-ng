@@ -128,7 +128,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,amavis,amavis) /var/log/amavis-ng
-%attr(770,amavis,amavis) /var/log/archiv/amavis-ng
+%attr(770,amavis,amavis) /var/log/archive/amavis-ng
 %attr(750,amavis,amavis) /var/run/amavis-ng
 %attr(770,amavis,amavis) /var/spool/amavis-ng
 %attr(644,amavis,amavis) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/amavis.conf
