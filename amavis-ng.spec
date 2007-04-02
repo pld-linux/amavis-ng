@@ -84,7 +84,7 @@ cd ../amavis-milter
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/logrotate.d,%{_infodir},%{_sbindir}}
 install -d $RPM_BUILD_ROOT/var/spool/amavis-ng/{problems,quarantine,queue,tmp}
-install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/{archiv/amavis-ng,amavis-ng}}
+install -d $RPM_BUILD_ROOT/var/{run/amavis-ng,log/{archive/amavis-ng,amavis-ng}}
 install -d $RPM_BUILD_ROOT%{_datadir}/amavis-ng
 
 %{__make} install \
