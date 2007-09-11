@@ -34,6 +34,7 @@ Provides:	user(amavis)
 Obsoletes:	AMaViS
 Obsoletes:	amavis
 Obsoletes:	amavisd
+Conflicts:	logrotate < 3.7.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # optionally used
